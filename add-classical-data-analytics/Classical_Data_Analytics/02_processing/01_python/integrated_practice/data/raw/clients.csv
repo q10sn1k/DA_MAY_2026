@@ -1,0 +1,61 @@
+client_id,segment,registration_date,loyalty_level
+C001,B2C,2025-11-24,Bronze
+C002,B2B,2026-01-15,Gold
+C003,B2C,2025-04-25,Silver
+C004,Enterprise,2025-12-13,Bronze
+C005,B2C,2025-01-17,Bronze
+C006,B2C,2025-04-22,Silver
+C007,Enterprise,2025-10-15, SILVER 
+C008,Small Business,2025-04-23,Platinum
+C009,B2B,2026-02-19,Bronze
+C010,Small Business,2025-12-24,Platinum
+C011,B2B,2025-05-23,Silver
+C012,,2026-05-06,Gold
+C013,B2C,2025-02-17,Platinum
+C014,Small Business,2025-07-03,Gold
+C015,Enterprise,2026-02-18,Bronze
+C016,Enterprise,2025-10-02,Bronze
+C017,Small Business,2025-02-10,Gold
+C018,B2C,2025-10-23, SILVER 
+C019,Small Business,2025-01-24,Silver
+C020,B2C,2025-02-10,Silver
+C021,Enterprise,2025-07-14,Gold
+C022,B2B,2025-11-22,Gold
+C023,B2B,2025-07-09,Gold
+C024,B2C,2025-12-10,Gold
+C025,B2B,2025-11-08,Silver
+C026,Enterprise,2025-03-25,Platinum
+C027,Small Business,2025-05-19,Silver
+C028,B2B,2026-03-08,Bronze
+C029,Small Business,2026-02-25,Bronze
+C030,B2C,2025-07-25,Gold
+C031,B2B,2025-04-19,Gold
+C032,Enterprise,2025-12-02,Platinum
+C033,B2B,2026-03-29,Platinum
+C034,B2B,2025-05-16,Silver
+C035,Enterprise,2026-01-17,Gold
+C036,Small Business,2026-04-05,Platinum
+C037,,2025-04-23,Silver
+C038,B2C,2025-02-16,Bronze
+C039,Enterprise,2025-03-20,Silver
+C040,Enterprise,2025-11-02,Bronze
+C041,Small Business,2025-07-15,Platinum
+C042,B2C,2026-05-13,Bronze
+C043,Small Business,2025-12-16, GOLD 
+C044,Enterprise,2025-02-27,Gold
+C045,B2C,2025-03-22,Platinum
+C046,B2B,2026-05-04,Gold
+C047,Small Business,2025-09-17,Bronze
+C048,B2B,2026-03-07,Silver
+C049,B2C,2025-07-11,Silver
+C050,Enterprise,2025-11-03,Gold
+C051,Small Business,2025-01-10,Bronze
+C052,B2B,2026-03-26,Gold
+C053,B2C,2025-01-30,Silver
+C054,B2C,2025-02-13,Platinum
+C055,B2B,2026-05-16,Silver
+C056,B2B,2025-12-04,Platinum
+C057,B2B,2025-05-16,Platinum
+C058,Small Business,2026-04-21,Silver
+C059,Enterprise,2025-07-24,Gold
+C060,B2C,2026-04-06,Platinum

@@ -1,0 +1,46 @@
+sale_id,order_date,client_id,product_id,region_id,quantity,unit_price,discount_percent,channel,payment_method,order_status,manager_id
+1001,2026-01-12,501,101,77,2,45000,5,online,card,completed,301
+1002,12.01.2026,502,103,78,1,72000,0,offline,cash,completed,302
+1003,2026/01/13,503,104,50,3,12500,10,marketplace,card,completed,303
+1004,2026-01-14,504,999,77,1,35000,0,Online,card,completed,301
+1005,14-01-2026,505,102,999,1,28000,,online  ,card,completed,302
+1006,2026-01-15,506,105,16,-1,19000,0,offline,cash,returned,304
+1007,2026-01-15,507,106,77,2,price_error,5,marketplace,card,completed,303
+1007,2026-01-15,507,106,77,2,price_error,5,marketplace,card,completed,303
+1008,2026-01-16,999,101,78,1,45000,150,ONLINE,card,completed,301
+1009,2026-01-17,508,108,23,1,31000,7,partner,bank_transfer,completed,305
+1010,17.01.2026,509,109,54,4,8200,0,online,card,completed,302
+1011,2026/01/18,510,110,16,1,61000,3,offline ,cash,completed,304
+1012,2026-01-18,511,111,77,2,23500,5,marketplace,card,cancelled,303
+1013,2026-01-19,512,112,50,1,14800,0,online,card,completed,301
+1014,19.01.2026,513,113,23,2,27500,12,offline,card,completed,305
+1015,2026/01/20,514,114,78,1,94000,8,marketplace,card,completed,303
+1016,2026-01-21,515,101,77,1,45000,0,online,card,completed,301
+1017,21-01-2026,516,102,78,2,28000,5,marketplace,card,completed,303
+1018,2026-01-22,517,103,16,1,72000,0,offline,cash,completed,304
+1019,2026/01/22,518,104,50,5,12500,10,online,card,completed,302
+1020,2026-01-23,519,105,23,2,19000,0,OFFLINE,cash,completed,305
+1021,23.01.2026,520,106,77,1,24000,5,marketplace,card,completed,303
+1022,2026-01-24,501,107,78,1,26000,0,online,card,completed,301
+1023,2026/01/24,502,108,50,2,31000,10,online ,card,completed,302
+1024,2026-01-25,503,109,16,3,8200,0,marketplace,card,completed,303
+1025,25-01-2026,504,110,23,1,61000,5,offline,bank_transfer,completed,305
+1026,2026-02-01,505,111,77,1,23500,0,online,card,completed,301
+1027,01.02.2026,506,112,78,2,14800,0,marketplace,card,completed,303
+1028,2026/02/02,507,113,50,1,27500,15,offline,cash,completed,302
+1029,2026-02-03,508,114,16,1,94000,5,online,card,completed,304
+1030,2026-02-04,509,101,23,1,45000,0,partner,bank_transfer,completed,305
+1031,04.02.2026,510,102,77,3,28000,7,online,card,completed,301
+1032,2026/02/05,511,103,78,1,72000,0,offline,cash,returned,302
+1033,2026-02-06,512,104,50,2,12500,0,marketplace,card,completed,303
+1034,2026-02-07,513,105,16,1,19000,0,online,card,completed,304
+1035,07-02-2026,514,106,23,1,24000,5,offline ,cash,completed,305
+1036,2026-02-08,515,108,77,2,31000,0,marketplace,card,completed,303
+1037,2026/02/09,516,109,78,4,8200,0,online,card,completed,301
+1038,2026-02-10,517,110,50,1,61000,10,offline,bank_transfer,completed,302
+1039,10.02.2026,518,111,16,1,23500,five,marketplace,card,completed,303
+1040,2026-02-11,519,112,23,2,14800,0,online,card,completed,305
+1041,bad_date,520,113,77,1,27500,0,online,card,completed,301
+1042,2026-02-12,501,114,78,1,94000,20,marketplace,card,completed,303
+1043,2026-02-13,502,101,50,2,45000,0,offline,cash,completed,302
+1044,2026-02-14,503,102,16,1,28000,5,online,card,completed,304

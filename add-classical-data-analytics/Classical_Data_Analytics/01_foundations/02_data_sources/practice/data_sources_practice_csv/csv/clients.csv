@@ -1,0 +1,61 @@
+﻿client_id;registration_date;city;segment;acquisition_channel;email_permission
+C001;2026-01-07;Санкт-Петербург;regular;marketplace;yes
+C002;2026-01-27;Казань;regular;email;yes
+C003;2026-04-19;Пермь;new;site;yes
+C004;2026-05-10;Нижний Новгород;regular;email;yes
+C005;2026-04-18;Самара;new;email;no
+C006;2026-02-10;Москва;regular;ads_yandex;no
+C007;2026-02-25;Казань;at_risk;ads_yandex;yes
+C008;2026-04-08;Санкт-Петербург;new;ads_yandex;no
+C009;2026-04-28;Москва;regular;ads_vk;yes
+C010;2026-03-17;Самара;vip;email;no
+C011;2026-02-19;Пермь;regular;site;yes
+C012;2026-01-21;Екатеринбург;vip;site;no
+C013;2026-04-27;Екатеринбург;regular;ads_yandex;yes
+C014;2026-04-01;Новосибирск;new;ads_yandex;yes
+C015;2026-02-13;Пермь;regular;marketplace;yes
+C016;2026-04-08;Воронеж;new;referral;yes
+C017;2026-01-15;;new;site;no
+C018;2026-03-10;Краснодар;new;email;no
+C019;2026-05-08;Нижний Новгород;regular;referral;no
+C020;2026-03-09;Казань;new;referral;no
+C021;2026-04-20;Пермь;vip;ads_vk;no
+C022;2026-02-05;Нижний Новгород;regular;site;yes
+C023;2026-02-09;Санкт-Петербург;regular;referral;no
+C024;2026-01-17;Пермь;regular;email;no
+C025;2026-03-06;Самара;at_risk;site;yes
+C026;2026-03-10;Самара;vip;ads_yandex;yes
+C027;2026-04-22;Екатеринбург;new;site;no
+C028;2026-02-15;Самара;regular;site;no
+C029;2026-02-20;СПб;new;marketplace;yes
+C030;2026-03-24;Пермь;regular;site;no
+C031;2026-03-03;Екатеринбург;new;email;yes
+C032;2026-05-05;Санкт-Петербург;vip;email;yes
+C033;2026-05-02;Казань;at_risk;marketplace;no
+C034;2026-04-19;Самара;at_risk;email;yes
+C035;2026-04-13;Екатеринбург;at_risk;referral;no
+C036;2026-04-26;Воронеж;new;marketplace;yes
+C037;2026-01-06;Новосибирск;regular;marketplace;yes
+C038;2026-01-19;Москва;regular;site;yes
+C039;2026-01-09;Санкт-Петербург;vip;site;yes
+C040;2026-05-05;Екатеринбург;new;marketplace;no
+C041;2026-05-02;Нижний Новгород;vip;marketplace;yes
+C042;2026-04-21;Санкт-Петербург;regular;ads_vk;no
+C043;2026-01-26;Москва;new;referral;no
+C044;2026-03-05;;new;email;no
+C045;2026-04-19;Казань;new;ads_vk;yes
+C046;2026-04-24;Санкт-Петербург;vip;email;yes
+C047;2026-01-04;Москва;at_risk;marketplace;yes
+C048;2026-05-05;Краснодар;regular;ads_vk;yes
+C049;2026-04-08;Казань;new;ads_vk;no
+C050;2026-03-15;Воронеж;regular;referral;no
+C051;2026-02-18;Казань;new;site;yes
+C052;2026-01-15;Новосибирск;new;ads_vk;yes
+C053;2026-05-11;Москва;new;marketplace;yes
+C054;2026-01-18;Пермь;regular;marketplace;no
+C055;2026-03-05;Санкт-Петербург;regular;site;yes
+C056;2026-03-22;Краснодар;at_risk;marketplace;no
+C057;2026-03-09;Нижний Новгород;regular;referral;no
+C058;2026-03-22;Воронеж;at_risk;site;yes
+C059;2026-01-26;Воронеж;new;marketplace;no
+C060;2026-03-31;Казань;vip;marketplace;no
