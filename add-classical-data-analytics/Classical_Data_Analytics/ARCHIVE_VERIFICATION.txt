@@ -1,5 +1,0 @@
-Classical Data Analytics v3 archive verification
-Files before verification marker: 311
-Maximum internal path length: 134
-Longest internal path: Classical_Data_Analytics/04_reporting/05_results_presentation/final_consultation_case/notebooks/02_student_consultation_template.ipynb
-Windows-compatible compact topic directories: yes
