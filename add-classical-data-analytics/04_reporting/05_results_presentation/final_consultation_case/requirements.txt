@@ -1,9 +1,0 @@
-pandas
-numpy
-matplotlib
-scipy
-scikit-learn
-openpyxl
-jupyter
-nbconvert
-python-docx

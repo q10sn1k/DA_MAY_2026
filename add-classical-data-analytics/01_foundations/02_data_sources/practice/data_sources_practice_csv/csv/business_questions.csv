@@ -1,6 +1,0 @@
-﻿question_id;business_question;expected_sources
-Q1;Почему изменилась выручка за последние недели?;"sales.csv; products.csv; marketing_channels.csv; regions.csv при региональном разрезе"
-Q2;Какие категории товаров продаются лучше всего?;"sales.csv; products.csv"
-Q3;Из каких каналов приходят клиенты?;"clients.csv; sales.csv; marketing_channels.csv; site_events_log.csv"
-Q4;В каких регионах продажи ниже ожидаемых?;"sales.csv; clients.csv; regions.csv"
-Q5;Какие данные нужны, чтобы оценить качество клиентского сервиса?;"customer_reviews.csv; sales.csv; site_events_log.csv"

@@ -1,5 +1,0 @@
-pandas
-numpy
-openpyxl
-jupyter
-nbformat
