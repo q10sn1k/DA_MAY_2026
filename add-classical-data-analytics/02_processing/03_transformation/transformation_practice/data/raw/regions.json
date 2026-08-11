@@ -1,0 +1,44 @@
+[
+  {
+    "region_id": "R01",
+    "region_name": "Москва",
+    "federal_district": "Центральный",
+    "city": "Москва"
+  },
+  {
+    "region_id": "R02",
+    "region_name": "Санкт-Петербург",
+    "federal_district": "Северо-Западный",
+    "city": "Санкт-Петербург"
+  },
+  {
+    "region_id": "R03",
+    "region_name": "Казань",
+    "federal_district": "Приволжский",
+    "city": "Казань"
+  },
+  {
+    "region_id": "R04",
+    "region_name": "Екатеринбург",
+    "federal_district": "Уральский",
+    "city": "Екатеринбург"
+  },
+  {
+    "region_id": "R05",
+    "region_name": "Новосибирск",
+    "federal_district": "Сибирский",
+    "city": "Новосибирск"
+  },
+  {
+    "region_id": "R06",
+    "region_name": "Краснодар",
+    "federal_district": "Южный",
+    "city": "Краснодар"
+  },
+  {
+    "region_id": "R07",
+    "region_name": "Владивосток",
+    "federal_district": "Дальневосточный",
+    "city": "Владивосток"
+  }
+]

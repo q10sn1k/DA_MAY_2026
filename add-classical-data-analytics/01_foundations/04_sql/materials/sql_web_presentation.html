@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Основы работы с SQL — WEB-презентация</title>
+  <style>
+    :root{
+      --bg:#f4f7fb;--slide:#fff;--ink:#172033;--muted:#64748b;--line:#d8e0eb;--accent:#2563eb;--accent2:#0f766e;--soft:#eef4ff;--soft2:#ecfdf5;--code:#0f172a;--codeText:#dbeafe;--warn:#f59e0b;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{margin:0;background:linear-gradient(135deg,#eef4ff 0%,#f8fafc 42%,#f1f5f9 100%);font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--ink);overflow:hidden}
+    .deck-shell{height:100vh;display:grid;grid-template-rows:1fr auto;gap:12px;padding:18px}
+    .stage{display:grid;place-items:center;min-height:0}
+    .slide{width:min(1180px,calc(100vw - 36px));aspect-ratio:16/9;background:var(--slide);border:1px solid rgba(148,163,184,.35);box-shadow:0 24px 70px rgba(15,23,42,.16);border-radius:28px;padding:42px 54px;position:relative;display:none;overflow:hidden}
+    .slide.active{display:block}
+    .slide::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 88% 12%,rgba(37,99,235,.12),transparent 24%),radial-gradient(circle at 8% 88%,rgba(15,118,110,.10),transparent 22%);pointer-events:none}
+    .topline{position:relative;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;color:var(--muted);font-size:16px;letter-spacing:.02em}
+    .tag{padding:7px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;font-weight:700;color:#334155}
+    .num{font-weight:800;color:#94a3b8}
+    h1,h2{position:relative;margin:0;color:var(--ink);letter-spacing:-.035em}
+    h1{font-size:64px;line-height:1.02;max-width:820px}
+    h2{font-size:45px;line-height:1.08;margin-bottom:16px;max-width:920px}
+    .subtitle{position:relative;margin-top:20px;font-size:24px;line-height:1.35;color:#475569;max-width:840px}
+    .grid-2{position:relative;display:grid;grid-template-columns:1.04fr .96fr;gap:30px;align-items:center;height:calc(100% - 92px)}
+    ul{position:relative;margin:16px 0 0;padding:0;list-style:none;display:grid;gap:12px;font-size:24px;line-height:1.24;color:#334155}
+    li{padding-left:30px;position:relative}
+    li::before{content:"";position:absolute;left:0;top:.55em;width:10px;height:10px;background:var(--accent);border-radius:50%}
+    .big-idea{position:relative;background:#0f172a;color:#fff;border-radius:28px;padding:28px 30px;font-size:31px;font-weight:900;line-height:1.15;box-shadow:0 18px 38px rgba(15,23,42,.2)}
+    .code{position:relative;background:var(--code);color:var(--codeText);border-radius:22px;padding:20px 22px;font:700 21px/1.34 Consolas,Menlo,monospace;white-space:pre-wrap;box-shadow:0 18px 42px rgba(15,23,42,.18);overflow:auto;max-height:300px}
+    .code.small{font-size:16px;line-height:1.28;padding:18px;max-height:350px}
+    .table-card{position:relative;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:#fff;box-shadow:0 12px 28px rgba(15,23,42,.06)}
+    table{width:100%;border-collapse:collapse;font-size:18px;position:relative}
+    th{background:#f1f5f9;color:#334155;text-align:left;font-weight:900;padding:12px 15px;border-bottom:1px solid var(--line)}
+    td{padding:12px 15px;border-bottom:1px solid #eef2f7;color:#475569;font-weight:650}
+    tr:last-child td{border-bottom:none}
+    .flow{position:relative;display:flex;align-items:center;justify-content:center;gap:13px;flex-wrap:wrap}
+    .box{min-width:142px;min-height:82px;border-radius:22px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;text-align:center;padding:16px;font-size:21px;font-weight:900;color:#1e293b;box-shadow:0 12px 30px rgba(15,23,42,.07)}
+    .box.accent{background:var(--soft);border-color:#bfdbfe;color:#1d4ed8}
+    .box.green{background:var(--soft2);border-color:#bbf7d0;color:#047857}
+    .box.warn{background:#fffbeb;border-color:#fde68a;color:#b45309}
+    .arrow{font-size:28px;color:#94a3b8;font-weight:900}
+    .mini-db{position:relative;display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .db-table{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 10px 24px rgba(15,23,42,.06)}
+    .db-title{background:#e0e7ff;color:#1e3a8a;font-weight:900;padding:12px 16px;font-size:19px}
+    .db-rows{padding:14px 16px;display:grid;gap:8px;color:#475569;font:700 18px/1.2 Consolas,Menlo,monospace}
+    .kpi-row{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:20px}
+    .kpi{border:1px solid var(--line);background:#fff;border-radius:20px;padding:18px 12px;text-align:center;box-shadow:0 10px 28px rgba(15,23,42,.06)}
+    .kpi b{display:block;font-size:25px;color:var(--accent);margin-bottom:6px}
+    .kpi span{font-size:15px;color:var(--muted);font-weight:800}
+    .compare{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:18px}
+    .panel{border-radius:20px;border:1px solid var(--line);padding:20px;background:#fff;box-shadow:0 10px 28px rgba(15,23,42,.06)}
+    .panel h3{margin:0 0 12px;font-size:25px;color:#172033}
+    .panel p{margin:0;color:#475569;font-size:20px;line-height:1.35}
+    .venn{position:relative;width:420px;height:240px;margin:auto}
+    .circle{position:absolute;width:230px;height:230px;border-radius:50%;opacity:.72;display:grid;place-items:center;font-weight:900;font-size:24px}
+    .circle.left{left:0;background:#dbeafe;color:#1d4ed8}
+    .circle.right{right:0;background:#ccfbf1;color:#0f766e}
+    .venn-label{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#fff;padding:10px 14px;border-radius:999px;font-weight:900;border:1px solid var(--line);box-shadow:0 6px 16px rgba(15,23,42,.08)}
+    .filter-viz{display:grid;gap:14px}
+    .funnel{height:210px;width:360px;margin:auto;clip-path:polygon(0 0,100% 0,64% 100%,36% 100%);background:linear-gradient(180deg,#dbeafe,#bfdbfe,#93c5fd);display:grid;place-items:center;color:#1d4ed8;font-size:26px;font-weight:900}
+    .sort-list{display:grid;gap:10px}
+    .sort-row{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:14px;background:#fff;padding:11px 16px;font-size:20px;font-weight:850;color:#334155}
+    .badge{background:#dbeafe;color:#1d4ed8;border-radius:999px;padding:5px 10px;font-size:16px}
+    .footer{position:absolute;left:54px;right:54px;bottom:28px;display:flex;justify-content:space-between;align-items:center;color:#94a3b8;font-size:15px;font-weight:800}
+    .progress-line{height:6px;background:#e2e8f0;border-radius:999px;overflow:hidden;flex:1;margin-left:18px}
+    .progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0%}
+    .controls{display:flex;align-items:center;justify-content:center;gap:12px}
+    .btn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 16px;font-weight:850;color:#334155;cursor:pointer;box-shadow:0 8px 20px rgba(15,23,42,.07)}
+    .btn:hover{border-color:#93c5fd;color:#1d4ed8}
+    .counter{font-weight:900;color:#334155;min-width:82px;text-align:center}
+    .hint{color:#64748b;font-size:14px;font-weight:750;margin-left:10px}
+    .speaker-notes{position:fixed;right:18px;top:18px;width:420px;max-width:calc(100vw - 36px);max-height:calc(100vh - 110px);overflow:auto;background:#fff;border:1px solid var(--line);box-shadow:0 20px 60px rgba(15,23,42,.24);border-radius:22px;padding:22px;display:none;z-index:10}
+    .speaker-notes.open{display:block}
+    .speaker-notes h3{margin:0 0 10px;font-size:20px}
+    .speaker-notes p{font-size:16px;line-height:1.48;color:#475569}
+    .speaker-notes .close{float:right;border:0;background:#f1f5f9;border-radius:999px;padding:5px 10px;font-weight:900;cursor:pointer}
+    @media (max-width:900px){.slide{padding:26px;border-radius:18px}.grid-2{grid-template-columns:1fr;gap:18px;height:auto}h1{font-size:42px}h2{font-size:32px}ul{font-size:18px}.code{font-size:15px}.kpi-row{grid-template-columns:1fr 1fr}.footer{left:26px;right:26px}.box{font-size:16px;min-width:110px}.arrow{display:none}}
+  </style>
+</head>
+<body>
+  <div class="deck-shell">
+    <main class="stage" id="stage"></main>
+    <nav class="controls" aria-label="Навигация по презентации">
+      <button class="btn" id="prev" type="button">← Назад</button>
+      <span class="counter" id="counter">1 / 30</span>
+      <button class="btn" id="next" type="button">Вперёд →</button>
+      <button class="btn" id="notesBtn" type="button">Заметки</button>
+      <span class="hint">←/→ навигация, N — заметки, F — полноэкранный режим</span>
+    </nav>
+  </div>
+  <aside class="speaker-notes" id="notes" aria-label="Заметки лектора">
+    <button class="close" id="closeNotes" type="button" aria-label="Закрыть заметки">×</button>
+    <h3 id="notesTitle"></h3>
+    <p id="notesText"></p>
+  </aside>
+  <script type="application/json" id="slides-data">[{"title": "Основы работы с SQL", "kind": "title", "body": ["SQL помогает аналитику получать, фильтровать, объединять и агрегировать данные."], "visual": "flow", "flow": ["Данные", "SQL-запрос", "Проверка", "Вывод"], "code": "SELECT *\nFROM orders;", "note": "SQL нужен аналитику как рабочий инструмент доступа к данным. Главная цель занятия — понять базовую логику запроса и научиться читать простые SQL-конструкции."}, {"title": "SQL в работе аналитика", "body": ["SQL находится между источником данных и аналитическим выводом.", "Результат запроса можно передать в отчёт, BI, Excel или Python."], "visual": "flow", "flow": ["Источник", "SQL", "Таблица результата", "Отчёт / BI"], "code": "SELECT order_id, revenue\nFROM orders;", "note": "Аналитик редко работает со всей базой сразу. Обычно он получает нужную выборку, проверяет её и использует в следующем инструменте."}, {"title": "Что такое база данных", "body": ["База данных — организованное хранилище таблиц.", "Каждая таблица описывает отдельную сущность или событие."], "visual": "tables", "tables": {"orders": ["order_id", "order_date", "client_id", "revenue"], "clients": ["client_id", "segment", "city"], "products": ["product_id", "product_name", "category"], "regions": ["region_id", "region_name"]}, "code": "SELECT *\nFROM orders\nLIMIT 10;", "note": "Реляционная база хранит данные в наборе связанных таблиц. Перед запросом нужно понять, что хранит каждая таблица."}, {"title": "Таблица, строка, столбец", "body": ["Таблица — набор записей.", "Строка — один объект или событие.", "Столбец — признак объекта."], "visual": "grid", "code": "SELECT order_id, order_date, revenue\nFROM orders;", "note": "Перед запросом нужно понять уровень детализации: одна строка — заказ, клиент, товарная позиция или событие. От этого зависит смысл расчётов."}, {"title": "Первичный ключ", "body": ["Ключ однозначно определяет запись.", "Примеры: order_id, client_id, product_id.", "Ключи помогают проверять уникальность и соединять таблицы."], "visual": "key", "code": "SELECT order_id, COUNT(*) AS rows_count\nFROM orders\nGROUP BY order_id\nHAVING COUNT(*) > 1;", "note": "Ключ помогает находить уникальные записи и соединять таблицы. Если ключ дублируется там, где должен быть уникальным, это риск для расчётов."}, {"title": "Связи между таблицами", "body": ["Таблицы соединяются через общие поля.", "Пример связи: orders.product_id = products.product_id."], "visual": "relation", "code": "SELECT o.order_id, p.category\nFROM orders AS o\nLEFT JOIN products AS p\n    ON o.product_id = p.product_id;", "note": "Связи позволяют обогащать основную таблицу дополнительными признаками. Заказы можно связать с товарами, клиентами и регионами."}, {"title": "Логика SQL-запроса", "body": ["Что выбрать?", "Откуда взять?", "Какие строки оставить?", "Как посчитать?", "Как отсортировать?"], "visual": "flow", "flow": ["SELECT", "FROM", "WHERE", "GROUP BY", "ORDER BY"], "code": "SELECT column_name\nFROM table_name\nWHERE condition\nORDER BY column_name;", "note": "Запрос — это не набор случайных команд, а формальное описание аналитического вопроса."}, {"title": "SELECT", "body": ["Выбирает столбцы или выражения.", "Лучше явно указывать нужные поля.", "SELECT * оставляем для первичного просмотра."], "visual": "select", "code": "SELECT order_id, order_date, revenue\nFROM orders;", "note": "SELECT * удобно для первичного просмотра, но в итоговом запросе лучше перечислять поля явно. Так запрос становится понятнее и безопаснее."}, {"title": "FROM", "body": ["Указывает источник данных.", "Источник задаёт уровень детализации результата."], "visual": "from", "code": "SELECT order_id, revenue\nFROM orders;", "note": "Если мы берём таблицу заказов, стартовая единица анализа — заказ. Если берём таблицу клиентов, стартовая единица — клиент."}, {"title": "WHERE", "body": ["Фильтрует исходные строки.", "Применяется до группировки и расчётов."], "visual": "filter", "code": "SELECT order_id, order_date, revenue\nFROM orders\nWHERE revenue > 10000;", "note": "WHERE отвечает за состав выборки. Неверное условие может исключить нужные данные или оставить лишние."}, {"title": "Операторы сравнения", "body": ["= — равно", "<> — не равно", "> — больше", "< — меньше", ">= — больше или равно", "<= — меньше или равно"], "visual": "operators", "code": "SELECT order_id, revenue\nFROM orders\nWHERE revenue >= 10000;", "note": "Операторы сравнения работают с типами данных. Числа, даты и строки нужно сравнивать корректно."}, {"title": "AND, OR, NOT", "body": ["Логические операторы комбинируют условия.", "Сложные условия лучше писать со скобками.", "Скобки делают бизнес-логику запроса явной."], "visual": "logic", "code": "SELECT order_id, channel, revenue\nFROM orders\nWHERE channel = 'online'\n  AND revenue >= 10000;", "note": "Главный риск — неверная логика при смешивании AND и OR. Скобки делают запрос читаемым."}, {"title": "LIKE и IN", "body": ["IN проверяет значение по списку.", "LIKE ищет текст по шаблону.", "% означает произвольное количество символов."], "visual": "twoCode", "code": "SELECT order_id, region\nFROM orders\nWHERE region IN ('Москва', 'Казань');\n\nSELECT product_name\nFROM products\nWHERE product_name LIKE '%Pro%';", "note": "IN удобнее длинной цепочки OR. LIKE полезен для поиска по тексту, но результат нужно проверять на примерах."}, {"title": "NULL", "body": ["NULL — отсутствие значения.", "NULL не равен нулю.", "NULL не равен пустой строке.", "Проверка: IS NULL и IS NOT NULL."], "visual": "null", "code": "SELECT order_id, delivery_date\nFROM orders\nWHERE delivery_date IS NULL;", "note": "NULL нельзя проверять через = NULL. Нужно использовать IS NULL, иначе результат будет некорректным."}, {"title": "ORDER BY", "body": ["Сортирует результат.", "Для топов сортировка обязательна.", "Без сортировки порядок строк не стоит считать управляемым."], "visual": "sort", "code": "SELECT order_id, revenue\nFROM orders\nORDER BY revenue DESC;", "note": "Если нужно получить топ, сортировка обязательна. Иначе первые строки результата не имеют гарантированного аналитического смысла."}, {"title": "LIMIT", "body": ["Ограничивает количество строк.", "Полезен для просмотра таблицы.", "Для топа используется вместе с ORDER BY."], "visual": "limit", "code": "SELECT order_id, revenue\nFROM orders\nORDER BY revenue DESC\nLIMIT 5;", "note": "LIMIT полезен только вместе с осознанной логикой. Для топа сначала нужен ORDER BY, потом LIMIT."}, {"title": "Агрегатные функции", "body": ["Агрегаты превращают строки в показатели.", "COUNT — количество.", "SUM — сумма.", "AVG — среднее.", "MIN и MAX — крайние значения."], "visual": "kpi", "code": "SELECT\n    COUNT(*) AS orders_count,\n    SUM(revenue) AS total_revenue,\n    AVG(revenue) AS avg_revenue\nFROM orders;", "note": "Агрегаты дают показатели, но их смысл зависит от уровня детализации таблицы. COUNT(*) может считать строки, заказы или позиции."}, {"title": "GROUP BY", "body": ["Считает показатели по группам.", "Логика: разделить → посчитать → собрать результат."], "visual": "group", "code": "SELECT\n    region,\n    SUM(revenue) AS total_revenue\nFROM orders\nGROUP BY region;", "note": "GROUP BY позволяет перейти от списка строк к аналитической таблице с итогами по категориям."}, {"title": "HAVING", "body": ["Фильтрует группы после расчёта агрегатов.", "Используется для условий по SUM, COUNT, AVG и другим агрегатам."], "visual": "having", "code": "SELECT\n    region,\n    SUM(revenue) AS total_revenue\nFROM orders\nGROUP BY region\nHAVING SUM(revenue) >= 100000;", "note": "HAVING нужен там, где условие относится не к отдельной строке, а к рассчитанному показателю по группе."}, {"title": "WHERE против HAVING", "body": ["WHERE работает до группировки и фильтрует строки.", "HAVING работает после группировки и фильтрует группы."], "visual": "compare", "code": "SELECT\n    region,\n    SUM(revenue) AS total_revenue\nFROM orders\nWHERE order_date >= '2026-01-01'\nGROUP BY region\nHAVING SUM(revenue) >= 100000;", "note": "Простое правило: условие по строкам — WHERE; условие по агрегатам — HAVING."}, {"title": "JOIN", "body": ["Соединяет таблицы по условию.", "Обычно соединение строится по ключу."], "visual": "join", "code": "SELECT\n    o.order_id,\n    p.category,\n    o.revenue\nFROM orders AS o\nJOIN products AS p\n    ON o.product_id = p.product_id;", "note": "JOIN не просто приклеивает таблицы. Он сопоставляет строки по ключу, поэтому качество ключа критично."}, {"title": "INNER JOIN", "body": ["Оставляет только совпавшие записи.", "Если совпадения нет — строка не попадёт в результат."], "visual": "inner", "code": "SELECT\n    o.order_id,\n    c.segment\nFROM orders AS o\nINNER JOIN clients AS c\n    ON o.client_id = c.client_id;", "note": "INNER JOIN может незаметно удалить строки, если в справочнике нет совпадения."}, {"title": "LEFT JOIN", "body": ["Сохраняет все строки из основной таблицы.", "Если совпадения нет — справа будет NULL."], "visual": "left", "code": "SELECT\n    o.order_id,\n    c.segment\nFROM orders AS o\nLEFT JOIN clients AS c\n    ON o.client_id = c.client_id;", "note": "LEFT JOIN часто удобен для диагностики: он сохраняет основную таблицу и показывает несовпадения."}, {"title": "Ошибки JOIN", "body": ["Неверный ключ.", "Дубли в справочнике.", "Потеря строк.", "Размножение строк.", "Неверный тип соединения."], "visual": "errors", "code": "SELECT product_id, COUNT(*) AS rows_count\nFROM products\nGROUP BY product_id\nHAVING COUNT(*) > 1;", "note": "Перед соединением полезно проверить уникальность ключей в справочнике и количество строк до и после JOIN."}, {"title": "Подзапросы", "body": ["Подзапрос — запрос внутри другого запроса.", "Результат внутреннего запроса используется снаружи."], "visual": "nested", "code": "SELECT order_id, revenue\nFROM orders\nWHERE revenue > (\n    SELECT AVG(revenue)\n    FROM orders\n);", "note": "Подзапрос читаем изнутри наружу: сначала внутренний запрос, затем внешний."}, {"title": "CASE WHEN", "body": ["Создаёт условную бизнес-логику.", "Помогает формировать категории прямо в запросе."], "visual": "case", "code": "SELECT\n    order_id,\n    revenue,\n    CASE\n        WHEN revenue >= 50000 THEN 'large'\n        WHEN revenue >= 10000 THEN 'medium'\n        ELSE 'small'\n    END AS order_size\nFROM orders;", "note": "CASE WHEN помогает формировать бизнес-категории прямо в SQL. Важно следить за порядком условий."}, {"title": "Типовые ошибки начинающих", "body": ["Лишний SELECT *.", "Путаница WHERE и HAVING.", "Неверная проверка NULL.", "Ошибочный JOIN.", "Нет проверки строк и сумм."], "visual": "checklist", "code": "SELECT COUNT(*) AS rows_count\nFROM orders;", "note": "SQL-ошибки не всегда видны как технические ошибки. Иногда запрос работает, но результат аналитически неверен."}, {"title": "Проверка результата", "body": ["Количество строк.", "Контрольные суммы.", "Пропуски.", "Дубли.", "Бизнес-смысл результата."], "visual": "qa", "code": "SELECT\n    COUNT(*) AS rows_count,\n    SUM(revenue) AS total_revenue\nFROM orders;", "note": "Проверка результата — обязательная часть работы. Запрос должен быть выполнен и проверен."}, {"title": "Мини-кейс аналитика", "body": ["Задача: найти выручку онлайн-продаж за 2026 год по категориям товаров.", "Показатели: количество заказов, общая выручка, средний чек."], "visual": "caseStudy", "code": "SELECT\n    p.category,\n    COUNT(DISTINCT o.order_id) AS orders_count,\n    SUM(o.revenue) AS total_revenue,\n    AVG(o.revenue) AS avg_order_revenue\nFROM orders AS o\nLEFT JOIN products AS p\n    ON o.product_id = p.product_id\nWHERE o.channel = 'online'\n  AND o.order_date >= '2026-01-01'\n  AND o.order_date < '2027-01-01'\nGROUP BY p.category\nORDER BY total_revenue DESC;", "note": "Этот запрос объединяет фильтрацию, соединение, группировку, агрегаты и сортировку."}, {"title": "Итоги", "body": ["SQL-запрос должен быть понятным.", "Проверяемым.", "Связанным с задачей.", "Аккуратным к данным.", "Готовым к интерпретации."], "visual": "final", "flow": ["Таблицы", "Запрос", "Проверка", "Вывод"], "code": "SELECT\n    business_question,\n    checked_result,\n    analytical_conclusion;", "note": "Главный итог: SQL — это не просто синтаксис, а способ получить проверяемые данные для аналитического решения."}]</script>
+  <script>
+    'use strict';
+    const slides = JSON.parse(document.getElementById('slides-data').textContent);
+    const stage = document.getElementById('stage');
+    let current = 0;
+
+    function el(tag, className, text) {
+      const node = document.createElement(tag);
+      if (className) node.className = className;
+      if (arguments.length >= 3 && text !== null) node.textContent = text;
+      return node;
+    }
+    function append(parent, ...children) {
+      children.forEach(child => { if (child) parent.appendChild(child); });
+      return parent;
+    }
+    function arrow() { return el('div', 'arrow', '→'); }
+
+    function makeCode(text) {
+      const pre = el('pre', 'code' + ((text || '').length > 260 ? ' small' : ''));
+      pre.textContent = text || '';
+      return pre;
+    }
+
+    function makeBody(items) {
+      if (Array.isArray(items)) {
+        const ul = el('ul');
+        items.forEach(item => ul.appendChild(el('li', '', item)));
+        return ul;
+      }
+      return el('p', 'subtitle', items || '');
+    }
+
+    function makeTable(headers, rows) {
+      const wrap = el('div', 'table-card');
+      const table = document.createElement('table');
+      const theadRow = document.createElement('tr');
+      headers.forEach(h => theadRow.appendChild(el('th', '', h)));
+      table.appendChild(theadRow);
+      rows.forEach(row => {
+        const tr = document.createElement('tr');
+        row.forEach(cell => tr.appendChild(el('td', '', cell)));
+        table.appendChild(tr);
+      });
+      wrap.appendChild(table);
+      return wrap;
+    }
+
+    function makeFlow(items) {
+      const flow = el('div', 'flow');
+      items.forEach((item, index) => {
+        const cls = index === 1 ? 'box accent' : index === 2 ? 'box green' : 'box';
+        flow.appendChild(el('div', cls, item));
+        if (index < items.length - 1) flow.appendChild(arrow());
+      });
+      return flow;
+    }
+
+    function makeTables(tables) {
+      const wrap = el('div', 'mini-db');
+      Object.entries(tables || {}).forEach(([name, rows]) => {
+        const box = el('div', 'db-table');
+        box.appendChild(el('div', 'db-title', name));
+        const list = el('div', 'db-rows');
+        rows.forEach(row => list.appendChild(el('span', '', row)));
+        box.appendChild(list);
+        wrap.appendChild(box);
+      });
+      return wrap;
+    }
+
+    function makeVenn(label) {
+      const wrap = el('div', 'venn');
+      append(wrap, el('div', 'circle left', 'orders'), el('div', 'circle right', 'clients'), el('div', 'venn-label', label));
+      return wrap;
+    }
+
+    function makeKpi() {
+      const wrap = el('div', 'kpi-row');
+      [['COUNT','количество'],['SUM','сумма'],['AVG','среднее'],['MIN','минимум'],['MAX','максимум']].forEach(([a,b]) => {
+        const kpi = el('div', 'kpi');
+        kpi.appendChild(el('b', '', a));
+        kpi.appendChild(el('span', '', b));
+        wrap.appendChild(kpi);
+      });
+      return wrap;
+    }
+
+    function makeSortList() {
+      const wrap = el('div', 'sort-list');
+      [['Заказ 1042','98 500'],['Заказ 1177','74 200'],['Заказ 1205','51 900'],['Заказ 1310','24 600']].forEach(([a,b]) => {
+        const row = el('div', 'sort-row');
+        row.appendChild(el('span', '', a));
+        row.appendChild(el('span', 'badge', b));
+        wrap.appendChild(row);
+      });
+      return wrap;
+    }
+
+    function renderVisual(slide) {
+      switch(slide.visual) {
+        case 'flow': return makeFlow(slide.flow || ['Данные','SQL','Результат']);
+        case 'tables': return makeTables(slide.tables);
+        case 'relation':
+        case 'join': return makeFlow(['orders', 'product_id', 'products', 'результат']);
+        case 'inner': return makeVenn('совпадения');
+        case 'left': return makeVenn('все orders');
+        case 'kpi': return makeKpi();
+        case 'operators': return makeTable(['Оператор','Смысл'], [['=','равно'], ['<>','не равно'], ['> / <','больше / меньше'], ['>= / <=','больше или равно / меньше или равно']]);
+        case 'compare': return makeTable(['Блок','Когда работает','Что фильтрует'], [['WHERE','до группировки','строки'], ['HAVING','после группировки','группы']]);
+        case 'errors': return makeTable(['Риск','Проверка'], [['Дубли ключей','GROUP BY + HAVING COUNT(*) > 1'], ['Потеря строк','COUNT(*) до и после JOIN'], ['Пропуски справа','IS NULL после LEFT JOIN']]);
+        case 'qa': return makeTable(['Что проверить','Зачем'], [['Строки','не потеряли данные'], ['Суммы','не завысили KPI'], ['NULL','нашли проблемы справочников'], ['Дубли','не размножили строки']]);
+        case 'filter': { const w = el('div','filter-viz'); w.appendChild(el('div','funnel','WHERE')); w.appendChild(el('div','big-idea','все строки → строки по условию')); return w; }
+        case 'sort': return makeSortList();
+        case 'limit': return makeFlow(['ORDER BY', 'сортировка', 'LIMIT 5', 'топ строк']);
+        case 'group': return makeFlow(['разделить', 'посчитать', 'собрать результат']);
+        case 'having': return makeFlow(['группы', 'агрегаты', 'HAVING', 'итог']);
+        case 'nested': return makeFlow(['внутренний SELECT', 'значение', 'внешний SELECT']);
+        case 'case': return makeFlow(['условие 1', 'результат 1', 'условие 2', 'ELSE']);
+        case 'checklist': return makeTable(['Ошибка','Проверка'], [['SELECT *','явно указать поля'], ['WHERE/HAVING','разделить строки и группы'], ['NULL','использовать IS NULL'], ['JOIN','проверить ключи']]);
+        case 'caseStudy': return makeFlow(['orders', 'products', 'GROUP BY category', 'вывод']);
+        case 'final': return makeFlow(slide.flow || ['таблицы','запрос','проверка','вывод']);
+        case 'grid': return makeTable(['Элемент','Смысл'], [['Таблица','набор записей'], ['Строка','один объект или событие'], ['Столбец','признак объекта']]);
+        case 'key': return makeTable(['Ключ','Где используется'], [['order_id','заказы'], ['client_id','клиенты'], ['product_id','товары']]);
+        case 'select': return makeTable(['Плохо для итога','Лучше'], [['SELECT *','SELECT order_id, revenue'], ['неясные поля','явный список']]);
+        case 'from': return makeFlow(['FROM orders', 'уровень заказа', 'результат']);
+        case 'logic': return makeFlow(['условие A', 'AND / OR', 'условие B', 'выборка']);
+        case 'twoCode': return makeTable(['Конструкция','Когда применять'], [['IN','список значений'], ['LIKE','поиск по текстовому шаблону']]);
+        case 'null': return makeTable(['Значение','Смысл'], [['0','число ноль'], ['пустая строка','текст без символов'], ['NULL','значение отсутствует']]);
+        default: return el('div', 'big-idea', Array.isArray(slide.body) ? slide.body[0] : (slide.body || 'SQL → данные → вывод'));
+      }
+    }
+
+    function renderSlide(slide, index) {
+      const section = el('section', 'slide');
+      section.dataset.idx = String(index);
+
+      const top = el('div', 'topline');
+      top.appendChild(el('span', 'tag', index === 0 ? 'Лекционный вебинар · 90 минут' : 'Основы работы с SQL'));
+      top.appendChild(el('span', 'num', String(index + 1).padStart(2, '0') + ' / 30'));
+      section.appendChild(top);
+
+      if (slide.kind === 'title') {
+        section.appendChild(el('h1', '', slide.title));
+        section.appendChild(el('p', 'subtitle', slide.body[0] || ''));
+        const visualWrap = el('div');
+        visualWrap.style.marginTop = '44px';
+        visualWrap.appendChild(renderVisual(slide));
+        section.appendChild(visualWrap);
+      } else {
+        section.appendChild(el('h2', '', slide.title));
+        const grid = el('div', 'grid-2');
+        const left = el('div');
+        left.appendChild(makeBody(slide.body));
+        if (slide.code) {
+          const codeWrap = el('div');
+          codeWrap.style.marginTop = '20px';
+          codeWrap.appendChild(makeCode(slide.code));
+          left.appendChild(codeWrap);
+        }
+        const right = el('div');
+        right.appendChild(renderVisual(slide));
+        append(grid, left, right);
+        section.appendChild(grid);
+      }
+
+      const footer = el('div', 'footer');
+      footer.appendChild(el('span', '', index === 0 ? 'Основы SQL для аналитика данных' : 'WEB-презентация · QA-версия'));
+      const progress = el('div', 'progress-line');
+      progress.appendChild(el('div', 'progress-fill'));
+      footer.appendChild(progress);
+      section.appendChild(footer);
+      return section;
+    }
+
+    slides.forEach((slide, index) => stage.appendChild(renderSlide(slide, index)));
+
+    function show(i) {
+      const all = Array.from(document.querySelectorAll('.slide'));
+      current = (i + all.length) % all.length;
+      all.forEach((node, idx) => node.classList.toggle('active', idx === current));
+      document.getElementById('counter').textContent = String(current + 1) + ' / ' + String(all.length);
+      document.querySelectorAll('.progress-fill').forEach((node, idx) => {
+        node.style.width = idx === current ? String(((current + 1) / all.length) * 100) + '%' : '0%';
+      });
+      const slide = slides[current];
+      document.getElementById('notesTitle').textContent = 'Слайд ' + String(current + 1) + '. ' + slide.title;
+      document.getElementById('notesText').textContent = slide.note || '';
+    }
+
+    function toggleNotes() { document.getElementById('notes').classList.toggle('open'); }
+    document.getElementById('next').addEventListener('click', () => show(current + 1));
+    document.getElementById('prev').addEventListener('click', () => show(current - 1));
+    document.getElementById('notesBtn').addEventListener('click', toggleNotes);
+    document.getElementById('closeNotes').addEventListener('click', toggleNotes);
+    document.addEventListener('keydown', event => {
+      if (event.key === 'ArrowRight') show(current + 1);
+      if (event.key === 'ArrowLeft') show(current - 1);
+      if (event.key.toLowerCase() === 'n') toggleNotes();
+      if (event.key.toLowerCase() === 'f') {
+        if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+        else document.exitFullscreen();
+      }
+    });
+    show(0);
+  </script>
+</body>
+</html>
