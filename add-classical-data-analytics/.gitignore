@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local secrets
+.env
+*.env
+secrets.*
+credentials.*
+
+# Generated outputs
+**/outputs/*
+!**/outputs/.gitkeep
+**/data/processed/*
+!**/data/processed/.gitkeep

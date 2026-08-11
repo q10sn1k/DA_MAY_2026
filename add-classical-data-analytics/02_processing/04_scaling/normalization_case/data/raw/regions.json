@@ -1,0 +1,32 @@
+[
+  {
+    "region_id": "R01",
+    "region_name": "Москва",
+    "macro_region": "Центральный"
+  },
+  {
+    "region_id": "R02",
+    "region_name": "Санкт-Петербург",
+    "macro_region": "Северо-Западный"
+  },
+  {
+    "region_id": "R03",
+    "region_name": "Казань",
+    "macro_region": "Приволжский"
+  },
+  {
+    "region_id": "R04",
+    "region_name": "Екатеринбург",
+    "macro_region": "Уральский"
+  },
+  {
+    "region_id": "R05",
+    "region_name": "Новосибирск",
+    "macro_region": "Сибирский"
+  },
+  {
+    "region_id": "R06",
+    "region_name": "Ростов-на-Дону",
+    "macro_region": "Южный"
+  }
+]

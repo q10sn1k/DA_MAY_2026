@@ -1,0 +1,21 @@
+﻿product_id;sku;product_name;category;brand;purchase_price;list_price;product_status
+P001;NB-001;Ноутбук Basic 14;Электроника;CompOne;42000;58900;active
+P002;NB-002;Ноутбук Pro 15;Электроника;CompOne;78000;105000;active
+P003;PH-001;Смартфон Nova X;Электроника;Mobix;26000;39900;active
+P004;PH-002;Смартфон Nova Lite;Электроника;Mobix;13500;21900;active
+P005;HD-001;Наушники Wave;Аксессуары;SoundWay;1900;3490;active
+P006;KB-001;Клавиатура Office;Аксессуары;KeyLab;1100;2190;active
+P007;MS-001;Мышь Wireless;Аксессуары;KeyLab;650;1290;active
+P008;BG-001;Рюкзак Urban;Аксессуары;CityPack;2100;4590;active
+P009;CH-001;Кофемашина Compact;Бытовая техника;HomePro;9800;15900;active
+P010;VC-001;Пылесос Turbo;Бытовая техника;HomePro;7300;12900;active
+P011;BK-001;Книга по Python;Книги;EduBooks;520;990;active
+P012;BK-002;Книга по Excel;Книги;EduBooks;480;890;active
+P013;SP-001;Смарт-часы Fit;Электроника;Mobix;4200;7990;active
+P014;TV-001;Монитор 24;Электроника;ViewPro;8100;13900;active
+P015;TB-001;Планшет Study;Электроника;CompOne;12800;21900;active
+P016;GM-001;Игровой коврик XL;Аксессуары;GameKit;430;990;active
+P017;CM-001;Веб-камера HD;Аксессуары;ViewPro;1450;2990;active
+P018;DR-001;Фен AirFlow;Бытовая техника;HomePro;1200;2490;inactive
+P019;BT-001;Пауэрбанк 10000;Аксессуары;ChargeIt;1050;2290;active
+P020;UNK-001;Тестовый товар без категории;;NoName;500;1200;active
