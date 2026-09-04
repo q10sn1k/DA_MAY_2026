@@ -1,0 +1,6 @@
+pandas>=2.2
+matplotlib>=3.10
+seaborn>=0.13.2
+jupyterlab>=4.2
+nbformat>=5.10
+nbclient>=0.10
